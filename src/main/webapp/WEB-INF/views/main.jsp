@@ -8,6 +8,6 @@
 </head>
 <body>
 	<h2>도서 관리 메인 페이지</h2>
-	<input type="button" onclick="window.location.href='${pageContext.request.contextPath}/books/list'" value="목록">
+	<input type="button" onclick="window.location.href='${pageContext.request.contextPath}/books/list'" value="도서 목록">
 </body>
 </html>
