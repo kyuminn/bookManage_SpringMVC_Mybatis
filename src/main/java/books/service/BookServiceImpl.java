@@ -1,5 +1,6 @@
 package books.service;
 
+import java.io.File;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -46,6 +47,21 @@ public class BookServiceImpl implements BookService {
 	@Override
 	public BookVo selectByISBN(long isbn) {
 		return bookDao.selectByISBN(isbn);
+	}
+
+	@Override
+	public void delete(int id) {
+		
+		BookVo vo = bookDao.read(id);
+		String bookImageName = vo.getBookImageName();
+		File file = new File("C:/bookImage/"+bookImageName);
+		if(file.exists()) {
+			file.delete();
+			System.out.println(bookImageName+"삭제 완료");
+		}else {
+			System.out.println("파일이 존재하지 않습니다");
+		}
+		bookDao.delete(id);
 	}
 
 }

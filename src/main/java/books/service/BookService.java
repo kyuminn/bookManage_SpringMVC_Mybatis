@@ -10,5 +10,6 @@ public interface BookService {
 	public abstract BookVo read(int id);
 	public abstract List<BookVo> selectByKeyword(String keyword);
 	public abstract BookVo selectByISBN(long isbn);
+	public abstract void delete(int id);
 	
 }

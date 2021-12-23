@@ -22,4 +22,7 @@
 	<select id="selectByISBN" resultType="vo" parameterType="Long">
 		select * from books where isbn=#{isbn}
 	</select>
+	<delete id="delete" parameterType="Integer">
+		delete from books where id=#{id}
+	</delete>
   </mapper>

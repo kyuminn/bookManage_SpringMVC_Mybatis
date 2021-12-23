@@ -37,6 +37,8 @@
 			<td colspan="2">${vo.content }</td>
 		</tr>
 	</table>
+	<br>
 	<input type="button" onclick="window.location.href='${pageContext.request.contextPath}/books/list'" value="도서 정보 목록">
+	<input type="button" onclick="window.location.href='${pageContext.request.contextPath}/books/delete/${vo.id}'" value="도서 삭제하기">
 </body>
 </html>

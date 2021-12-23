@@ -38,5 +38,10 @@ public class BookDaoImpl implements BookDao {
 	public BookVo selectByISBN(long isbn) {
 		return sqlSessionTemplate.selectOne("bookDao.selectByISBN", isbn);
 	}
+	@Override
+	public void delete(int id) {
+		sqlSessionTemplate.delete("bookDao.delete", id);
+		
+	}
 
 }

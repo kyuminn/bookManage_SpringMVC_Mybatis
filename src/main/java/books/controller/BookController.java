@@ -93,4 +93,10 @@ public class BookController {
 		model.addAttribute("list",list);
 		return "/books/list";
 	}
+	
+	@RequestMapping(value="/books/delete/{id}")
+	public String delete(@PathVariable("id")int id) {
+		bookService.delete(id);
+		return "redirect:/books/list";
+	}
 }
