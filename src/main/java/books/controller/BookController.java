@@ -53,4 +53,9 @@ public class BookController {
 		model.addAttribute("vo",vo);
 		return "/books/detail";
 	}
+	
+	@RequestMapping(value="/books/search")
+	public String search(String keyword) {
+		
+	}
 }

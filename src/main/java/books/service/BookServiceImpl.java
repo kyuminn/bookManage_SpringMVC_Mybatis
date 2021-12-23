@@ -29,4 +29,9 @@ public class BookServiceImpl implements BookService {
 		return bookDao.read(id);
 	}
 
+	@Override
+	public List<BookVo> selectByKeyword(String keyword) {
+		return bookDao.selectByKeyword(keyword);
+	}
+
 }

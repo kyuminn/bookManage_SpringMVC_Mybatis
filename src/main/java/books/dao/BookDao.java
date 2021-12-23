@@ -8,4 +8,5 @@ public interface BookDao {
 	public abstract void regist(BookVo vo);
 	public List<BookVo> list();
 	public BookVo read(int id);
+	public List<BookVo> selectByKeyword(String keyword);
 }

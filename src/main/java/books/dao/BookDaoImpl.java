@@ -30,5 +30,9 @@ public class BookDaoImpl implements BookDao {
 	public BookVo read(int id) {
 		return sqlSessionTemplate.selectOne("bookDao.read",id);
 	}
+	@Override
+	public List<BookVo> selectByKeyword(String keyword) {
+		return sqlSessionTemplate.selectList("bookDao.selectByKeyword", keyword);
+	}
 
 }
