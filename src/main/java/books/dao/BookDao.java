@@ -9,4 +9,5 @@ public interface BookDao {
 	public List<BookVo> list();
 	public BookVo read(int id);
 	public List<BookVo> selectByKeyword(String keyword);
+	public BookVo selectByISBN(long isbn);
 }

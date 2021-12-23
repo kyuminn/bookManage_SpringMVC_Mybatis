@@ -14,7 +14,21 @@
 </style>
 </head>
 <body>
+
 	<h2>도서관리 리스트</h2>
+	<c:if test="${empty list }">
+		<h3>등록된 도서가 없습니다.</h3>
+		<table class="addBook">
+		<tr>
+			<td align="right">
+				<input type="button" onclick="window.location.href='${pageContext.request.contextPath}/books/add'" value="도서 정보 추가">
+			</td>
+		</tr>
+	</table>
+	</c:if>
+	
+	
+	<c:if test="${!empty list }">
 	<form action="<c:url value='/books/search'/>">
 		<label for="search">검색 키워드 입력:</label>
 		<input type="text" id="search" name="keyword" placeholder="도서제목 또는 저자 입력">
@@ -53,6 +67,7 @@
 		</c:forEach>
 	</table>
 	<br><br>
+	</c:if>
 	<!-- 위치이동 
 	<input type="button" onclick="window.location.href='${pageContext.request.contextPath}/books/add'" value="도서 정보 추가">-->
 </body>

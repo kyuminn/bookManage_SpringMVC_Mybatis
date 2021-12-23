@@ -6,6 +6,8 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import books.dao.BookDao;
+import books.exception.DuplicateIsbnException;
+import books.exception.UnAttachedFileException;
 import books.vo.BookVo;
 
 @Service
@@ -16,7 +18,14 @@ public class BookServiceImpl implements BookService {
 	
 	@Override
 	public void regist(BookVo vo) {
-		bookDao.regist(vo);
+		BookVo dbVo = bookDao.selectByISBN(vo.getIsbn());
+		if(dbVo!=null) {
+			throw new DuplicateIsbnException();
+		}
+		if(vo.getBookImageName()==null || vo.getBookImageName()=="") {
+			throw new UnAttachedFileException();
+		}
+		bookDao.regist(dbVo);
 	}
 
 	@Override
@@ -32,6 +41,11 @@ public class BookServiceImpl implements BookService {
 	@Override
 	public List<BookVo> selectByKeyword(String keyword) {
 		return bookDao.selectByKeyword(keyword);
+	}
+
+	@Override
+	public BookVo selectByISBN(long isbn) {
+		return bookDao.selectByISBN(isbn);
 	}
 
 }

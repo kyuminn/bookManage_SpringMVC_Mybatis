@@ -16,6 +16,9 @@
 	
 	<mvc:view-controller path="/" view-name="main"/>
 	
+	<!-- resource 아래에 있는 스크립트 파일 경로 설정 -->
+	<mvc:resources location="/resources/" mapping="/resources/**"/>
+	
 	<!-- label.properties 읽어들이기 -->
 	<bean id="messageSource" class="org.springframework.context.support.ResourceBundleMessageSource">
 		<property name="basenames">

@@ -19,4 +19,7 @@
 	<select id="selectByKeyword" resultType="vo" parameterType="String">
 		select * from books where book_name like '%' ||  #{keyword} || '%' or writer like '%' ||  #{keyword} || '%'
 	</select>
+	<select id="selectByISBN" resultType="vo" parameterType="Long">
+		select * from books where isbn=#{isbn}
+	</select>
   </mapper>

@@ -7,6 +7,7 @@ import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.validation.Errors;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -14,7 +15,10 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.multipart.MultipartFile;
 
+import books.exception.DuplicateIsbnException;
+import books.exception.UnAttachedFileException;
 import books.service.BookService;
+import books.validator.RegFormValidator;
 import books.vo.BookVo;
 
 @Controller
@@ -28,7 +32,7 @@ public class BookController {
 	}
 	
 	@RequestMapping(value="/books/add", method=RequestMethod.POST)
-	public String regist(@ModelAttribute("vo")BookVo vo,@RequestParam("uploadFile")MultipartFile uploadFile) {
+	public String regist(@ModelAttribute("vo")BookVo vo,Errors errors,@RequestParam("uploadFile")MultipartFile uploadFile) {
 		//File file = new File("C:/bookImage/"+uploadFile.getOriginalFilename());
 		
 		String filePath="C:/bookImage";
@@ -42,15 +46,30 @@ public class BookController {
 			System.out.println("C:/bookImage 확인 완료");
 		}
 		
-		File file = new File(filePath+"/"+uploadFile.getOriginalFilename());
+		vo.setBookImageName(uploadFile.getOriginalFilename());
+		new RegFormValidator().validate(vo, errors);
+		if(errors.hasErrors()) {
+			return "books/regForm";
+		}
+
+		try {
+			bookService.regist(vo);
+		}catch(DuplicateIsbnException e) {
+			errors.rejectValue("isbn", "duplicate");
+			return "/books/regForm";
+		}catch(UnAttachedFileException e) {
+			errors.rejectValue("bookImageName", "unattached");
+			return "/books/regForm";
+		}
 		
+		
+		File file = new File(filePath+"/"+uploadFile.getOriginalFilename());
 		try {
 			uploadFile.transferTo(file);
 		} catch (IllegalStateException | IOException e) {
 			e.printStackTrace();
 		}
-		vo.setBookImageName(uploadFile.getOriginalFilename());
-		bookService.regist(vo);
+
 		return "redirect:/";
 	}
 	

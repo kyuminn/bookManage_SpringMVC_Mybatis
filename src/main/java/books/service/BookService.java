@@ -9,5 +9,6 @@ public interface BookService {
 	public abstract List<BookVo> list();
 	public abstract BookVo read(int id);
 	public abstract List<BookVo> selectByKeyword(String keyword);
+	public abstract BookVo selectByISBN(long isbn);
 	
 }

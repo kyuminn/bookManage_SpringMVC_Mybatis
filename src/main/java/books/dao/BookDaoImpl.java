@@ -34,5 +34,9 @@ public class BookDaoImpl implements BookDao {
 	public List<BookVo> selectByKeyword(String keyword) {
 		return sqlSessionTemplate.selectList("bookDao.selectByKeyword", keyword);
 	}
+	@Override
+	public BookVo selectByISBN(long isbn) {
+		return sqlSessionTemplate.selectOne("bookDao.selectByISBN", isbn);
+	}
 
 }
