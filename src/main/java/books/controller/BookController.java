@@ -29,7 +29,21 @@ public class BookController {
 	
 	@RequestMapping(value="/books/add", method=RequestMethod.POST)
 	public String regist(@ModelAttribute("vo")BookVo vo,@RequestParam("uploadFile")MultipartFile uploadFile) {
-		File file = new File("C:/bookImage/"+uploadFile.getOriginalFilename());
+		//File file = new File("C:/bookImage/"+uploadFile.getOriginalFilename());
+		
+		String filePath="C:/bookImage";
+		File dir = new File(filePath);
+		// 디렉터리 없으면 생성
+		if(dir.isDirectory()) {
+			if(!dir.exists()) {
+				dir.mkdir();
+				System.out.println("C:/bookImage 생성 완료");
+			}
+			System.out.println("C:/bookImage 확인 완료");
+		}
+		
+		File file = new File(filePath+"/"+uploadFile.getOriginalFilename());
+		
 		try {
 			uploadFile.transferTo(file);
 		} catch (IllegalStateException | IOException e) {
@@ -55,7 +69,9 @@ public class BookController {
 	}
 	
 	@RequestMapping(value="/books/search")
-	public String search(String keyword) {
-		
+	public String search(String keyword,Model model) {
+		List<BookVo> list = bookService.selectByKeyword(keyword);
+		model.addAttribute("list",list);
+		return "/books/list";
 	}
 }

@@ -6,6 +6,12 @@
 <head>
 <meta charset="UTF-8">
 <title>도서관리</title>
+<style type="text/css">
+	table {
+	width:700px;
+	}
+
+</style>
 </head>
 <body>
 	<h2>도서관리 리스트</h2>
@@ -14,6 +20,13 @@
 		<input type="text" id="search" name="keyword" placeholder="도서제목 또는 저자 입력">
 		<input type="submit" value="찾기">
 	</form>
+	<table class="addBook">
+		<tr>
+			<td align="right">
+				<input type="button" onclick="window.location.href='${pageContext.request.contextPath}/books/add'" value="도서 정보 추가">
+			</td>
+		</tr>
+	</table>
 	<br>
 	<table border="1">
 		<tr>
@@ -39,6 +52,8 @@
 			</tr>
 		</c:forEach>
 	</table>
-	<input type="button" onclick="window.location.href='${pageContext.request.contextPath}/books/add'" value="도서 정보 추가">
+	<br><br>
+	<!-- 위치이동 
+	<input type="button" onclick="window.location.href='${pageContext.request.contextPath}/books/add'" value="도서 정보 추가">-->
 </body>
 </html>

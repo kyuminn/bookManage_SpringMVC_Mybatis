@@ -17,6 +17,6 @@
 		select * from books where id=#{id}
 	</select>
 	<select id="selectByKeyword" resultType="vo" parameterType="String">
-		select * from books where book_name like '%#{keyword}%' or writer like '%#{keyword}%'
+		select * from books where book_name like '%' ||  #{keyword} || '%' or writer like '%' ||  #{keyword} || '%'
 	</select>
   </mapper>
