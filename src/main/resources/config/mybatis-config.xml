@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE configuration PUBLIC "-//mybatis.org//DTD Config 3.0//EN"
+  "http://mybatis.org/dtd/mybatis-3-config.dtd">
+<configuration>
+
+	<!-- 마이바티스 작동 규칙 정의 -->
+	<settings>
+		<setting name="cacheEnabled" value="false"/>
+		<setting name="useGeneratedKeys" value="false"/>
+		<setting name="mapUnderscoreToCamelCase" value="true"/>
+		<!-- db table의 컬럼명에 _ (언더바)가 있는 경우에 자바 문법으로 바꿔주는것
+		예) member_age=>memberAge
+		 -->
+	</settings>
+	<typeAliases>
+		<typeAlias type="books.vo.BookVo" alias="vo"/>
+	</typeAliases>
+	
+
+</configuration>

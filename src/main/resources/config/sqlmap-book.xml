@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+  "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+	<!-- result Type은  mybatis-config에서 정의한 alias 이름 -->
+	<!-- id = 특정 쿼리문을 식별하기 위한 값 -->
+	<!-- namespace " 쿼리들 묶음 이름... -->
+	<!-- boardDao.list로 접근 -->
+  <mapper namespace="bookDao">
+	<insert id="regist" parameterType="vo">
+		insert into books(id,bookimagename,isbn,book_name,writer,publisher,price,content) 
+		values(book_seq.nextval,#{bookImageName},#{isbn},#{bookName},#{writer},#{publisher},#{price},#{content})
+	</insert>
+	<select id="list" resultType="vo">
+		select * from books
+	</select>
+	<select id="read" resultType="vo" parameterType="Integer">
+		select * from books where id=#{id}
+	</select>
+  </mapper>
