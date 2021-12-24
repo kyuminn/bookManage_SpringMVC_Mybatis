@@ -45,7 +45,6 @@ public class BookController {
 			}
 			System.out.println("C:/bookImage 확인 완료");
 		}
-		
 		vo.setBookImageName(uploadFile.getOriginalFilename());
 		new RegFormValidator().validate(vo, errors);
 		if(errors.hasErrors()) {
@@ -70,7 +69,7 @@ public class BookController {
 			e.printStackTrace();
 		}
 
-		return "redirect:/";
+		return "redirect:/books/list";
 	}
 	
 	@RequestMapping(value="/books/list")

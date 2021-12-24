@@ -26,7 +26,7 @@ public class BookServiceImpl implements BookService {
 		if(vo.getBookImageName()==null || vo.getBookImageName()=="") {
 			throw new UnAttachedFileException();
 		}
-		bookDao.regist(dbVo);
+		bookDao.regist(vo);
 	}
 
 	@Override
@@ -51,7 +51,6 @@ public class BookServiceImpl implements BookService {
 
 	@Override
 	public void delete(int id) {
-		
 		BookVo vo = bookDao.read(id);
 		String bookImageName = vo.getBookImageName();
 		File file = new File("C:/bookImage/"+bookImageName);
