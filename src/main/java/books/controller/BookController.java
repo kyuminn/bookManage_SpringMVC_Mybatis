@@ -14,6 +14,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.multipart.MultipartFile;
+import org.springframework.web.multipart.MultipartHttpServletRequest;
 
 import books.exception.DuplicateIsbnException;
 import books.exception.UnAttachedFileException;
@@ -34,9 +35,9 @@ public class BookController {
 	@RequestMapping(value="/books/add", method=RequestMethod.POST)
 	public String regist(@ModelAttribute("vo")BookVo vo,Errors errors,@RequestParam("uploadFile")MultipartFile uploadFile) {
 		//File file = new File("C:/bookImage/"+uploadFile.getOriginalFilename());
-		
 		String filePath="C:/bookImage";
 		File dir = new File(filePath);
+		
 		// 디렉터리 없으면 생성
 		if(dir.isDirectory()) {
 			if(!dir.exists()) {
@@ -45,12 +46,16 @@ public class BookController {
 			}
 			System.out.println("C:/bookImage 확인 완료");
 		}
+		
 		vo.setBookImageName(uploadFile.getOriginalFilename());
+		
+		// 값 유효성 검사
 		new RegFormValidator().validate(vo, errors);
 		if(errors.hasErrors()) {
 			return "books/regForm";
 		}
-
+		
+		
 		try {
 			bookService.regist(vo);
 		}catch(DuplicateIsbnException e) {
