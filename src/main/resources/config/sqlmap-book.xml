@@ -10,8 +10,13 @@
 		insert into books(id,bookimagename,isbn,book_name,writer,publisher,price,content) 
 		values(book_seq.nextval,#{bookImageName},#{isbn},#{bookName},#{writer},#{publisher},#{price},#{content})
 	</insert>
-	<select id="list" resultType="vo">
+	<!--<select id="list" resultType="vo">
 		select * from books
+	</select>-->
+	<select id="list" resultType="vo" parameterType="page">
+		<!-- select * from books -->
+		<![CDATA[ select * from (select rownum rnum,id,bookimagename,isbn,book_name,
+		writer,publisher,price,content from (select * from books order by id desc)) where rnum>=#{startRowNum} and rnum<=#{lastRowNum}]]>
 	</select>
 	<select id="read" resultType="vo" parameterType="Integer">
 		select * from books where id=#{id}
@@ -25,4 +30,7 @@
 	<delete id="delete" parameterType="Integer">
 		delete from books where id=#{id}
 	</delete>
+	<select id="rowCount" resultType="Integer">
+		select count(*) from books
+	</select>
   </mapper>

@@ -7,6 +7,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 
 import books.vo.BookVo;
+import books.vo.Paging;
 
 @Repository
 public class BookDaoImpl implements BookDao {
@@ -23,8 +24,8 @@ public class BookDaoImpl implements BookDao {
 		
 	}
 	@Override
-	public List<BookVo> list() {
-		return sqlSessionTemplate.selectList("bookDao.list");
+	public List<BookVo> list(Paging page) {
+		return sqlSessionTemplate.selectList("bookDao.list",page);
 	}
 	@Override
 	public BookVo read(int id) {
@@ -42,6 +43,10 @@ public class BookDaoImpl implements BookDao {
 	public void delete(int id) {
 		sqlSessionTemplate.delete("bookDao.delete", id);
 		
+	}
+	@Override
+	public int selectRowCount() {
+		return sqlSessionTemplate.selectOne("bookDao.rowCount");
 	}
 
 }

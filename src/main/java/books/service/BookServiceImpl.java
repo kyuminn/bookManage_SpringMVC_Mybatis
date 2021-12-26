@@ -10,6 +10,7 @@ import books.dao.BookDao;
 import books.exception.DuplicateIsbnException;
 import books.exception.UnAttachedFileException;
 import books.vo.BookVo;
+import books.vo.Paging;
 
 @Service
 public class BookServiceImpl implements BookService {
@@ -30,8 +31,8 @@ public class BookServiceImpl implements BookService {
 	}
 
 	@Override
-	public List<BookVo> list() {
-		return bookDao.list();
+	public List<BookVo> list(Paging page) {
+		return bookDao.list(page);
 	}
 
 	@Override
@@ -61,6 +62,11 @@ public class BookServiceImpl implements BookService {
 			System.out.println("파일이 존재하지 않습니다");
 		}
 		bookDao.delete(id);
+	}
+	
+	@Override
+	public int selectRowCount() {
+		return bookDao.selectRowCount();
 	}
 
 }

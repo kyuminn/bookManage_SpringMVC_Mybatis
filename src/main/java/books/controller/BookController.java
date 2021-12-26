@@ -4,6 +4,8 @@ import java.io.File;
 import java.io.IOException;
 import java.util.List;
 
+import javax.servlet.http.HttpServletRequest;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -21,6 +23,7 @@ import books.exception.UnAttachedFileException;
 import books.service.BookService;
 import books.validator.RegFormValidator;
 import books.vo.BookVo;
+import books.vo.Paging;
 
 @Controller
 public class BookController {
@@ -78,9 +81,29 @@ public class BookController {
 	}
 	
 	@RequestMapping(value="/books/list")
-	public String list(Model model) {
-		List<BookVo> list = bookService.list();
+	public String list(Model model,HttpServletRequest request) {
+		int pageNum;
+		if(request.getParameter("pageNum")==null) {
+			pageNum=1;
+		}else {
+			pageNum= Integer.parseInt(request.getParameter("pageNum"));
+		}
+		Paging page = new Paging();
+		page.pagedArticleList(pageNum);
+		
+		int totalRowCount= bookService.selectRowCount();
+		page.setPageVar(pageNum,totalRowCount);
+		List<BookVo> list= bookService.list(page);
+		
+
+		model.addAttribute("page",page);
 		model.addAttribute("list",list);
+		if (page.getStartPageNum() > page.getPageBlock()) {
+			model.addAttribute("firstBlock", true); // 이전 버튼 활성화
+		}
+		if (page.getLastPageNum() < page.getTotalPageCount()) {
+			model.addAttribute("lastBlock", true); // 다음 버튼 활성화
+		}
 		return "/books/list";
 	}
 	

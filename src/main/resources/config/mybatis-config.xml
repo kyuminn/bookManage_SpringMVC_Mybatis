@@ -14,6 +14,7 @@
 	</settings>
 	<typeAliases>
 		<typeAlias type="books.vo.BookVo" alias="vo"/>
+		<typeAlias type="books.vo.Paging" alias="page"/>
 	</typeAliases>
 	
 
