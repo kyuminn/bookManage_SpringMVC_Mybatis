@@ -1,11 +1,14 @@
 package member.controller;
 
+import javax.servlet.http.Cookie;
+import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.Errors;
+import org.springframework.web.bind.annotation.CookieValue;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
@@ -53,15 +56,29 @@ public class MemberController {
 	}
 	
 	@RequestMapping(value="/member/login",method=RequestMethod.GET)
-	public String login(@ModelAttribute("loginFormData")MemberVo vo) {
+	public String login(@ModelAttribute("loginFormData")MemberVo vo, @CookieValue(value="rememberEmail", required=false)Cookie cookie) {
+		if (cookie!=null) {
+			vo.setEmail(cookie.getValue());
+			vo.setRememberEmail(true);
+		}
 		return "/member/login";
 	}
 	
 	@RequestMapping(value="/member/login",method=RequestMethod.POST)
-	public String login(@ModelAttribute("loginFormData")MemberVo vo,Errors errors,HttpSession session) {
+	public String login(@ModelAttribute("loginFormData")MemberVo vo,Errors errors,HttpSession session,HttpServletResponse response) {
 		try {
 			MemberVo loginSession=memberService.login(vo);
 			session.setAttribute("loginSession", loginSession);
+			
+			Cookie cookie = new Cookie("rememberEmail",vo.getEmail());
+			cookie.setPath("/");
+			if(vo.isRememberEmail()) {
+				cookie.setMaxAge(60*60*24);
+			}else {
+				cookie.setMaxAge(0);
+			}
+			response.addCookie(cookie);
+
 		}catch(IdPasswordNotMatchingException e) {
 			errors.reject("emailPwdNotMatching");
 			return "/member/login";

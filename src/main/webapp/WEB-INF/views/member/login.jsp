@@ -13,7 +13,9 @@
 		<table border="1">
 			<tr>
 				<th>이메일</th>
-				<td><form:input path="email"/></td>
+				<td><form:input path="email"/>
+					<form:checkbox path="rememberEmail"/>이메일 기억하기
+				</td>
 			</tr>
 			<tr>
 				<th>비밀번호</th>
