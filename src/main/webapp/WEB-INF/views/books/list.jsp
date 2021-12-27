@@ -71,13 +71,13 @@
 	<!-- 위치이동 
 	<input type="button" onclick="window.location.href='${pageContext.request.contextPath}/books/add'" value="도서 정보 추가">-->
 	<c:if test="${firstBlock == true}">
-		<a href="${pageContext.request.contextPath}/books/list?pageNum=${page.back}">[이전]</a>
+		<a href="${pageContext.request.contextPath}/books/list?pageNum=${page.backPage}">[이전]</a>
 	</c:if>
 	<c:forEach var="i" begin="${page.startPageNum}" end="${page.lastPageNum}" >
 		<a href="${pageContext.request.contextPath}/books/list?pageNum=${i }">[${i}]</a>&nbsp;&nbsp;
 	</c:forEach>
 	<c:if test="${lastBlock == true }">
-		<a href="${pageContext.request.contextPath}/books/list?pageNum=${page.forward}">[다음]</a>
+		<a href="${pageContext.request.contextPath}/books/list?pageNum=${page.forwardPage}">[다음]</a>
 	</c:if>
 	</c:if>
 </body>
