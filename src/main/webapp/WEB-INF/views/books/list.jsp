@@ -37,6 +37,7 @@
 	<table class="addBook">
 		<tr>
 			<td align="right">
+				<input type="button" onclick="window.location.href='${pageContext.request.contextPath}/'" value="메인으로">
 				<input type="button" onclick="window.location.href='${pageContext.request.contextPath}/books/add'" value="도서 정보 추가">
 			</td>
 		</tr>
@@ -67,7 +68,6 @@
 		</c:forEach>
 	</table>
 	<br><br>
-
 	<!-- 위치이동 
 	<input type="button" onclick="window.location.href='${pageContext.request.contextPath}/books/add'" value="도서 정보 추가">-->
 	<c:if test="${firstBlock == true}">
