@@ -14,6 +14,7 @@ import member.exception.AlreadyExistingMemberException;
 import member.exception.ConfirmPwdNotMatchingException;
 import member.exception.IdPasswordNotMatchingException;
 import member.service.MemberService;
+import member.validator.RegistFormValidator;
 import member.vo.MemberVo;
 
 @Controller
@@ -34,6 +35,10 @@ public class MemberController {
 	
 	@RequestMapping(value="/member/regist",method=RequestMethod.POST)
 	public String regist(@ModelAttribute("formData")MemberVo vo,Errors errors) {
+		new RegistFormValidator().validate(vo, errors);
+		if(errors.hasErrors()) {
+			return "/member/registForm";
+		}
 		try {
 			memberService.regist(vo);
 		}catch(ConfirmPwdNotMatchingException e) {
