@@ -19,6 +19,14 @@
 	<!-- resource 아래에 있는 스크립트 파일 경로 설정 -->
 	<mvc:resources location="/resources/" mapping="/resources/**"/>
 	
+	<!-- interceptor 설정 -->
+	<mvc:interceptors>
+		<mvc:interceptor>
+			<mvc:mapping path="/books/**"/> <!-- books 하위 경로로 요청했을때  -->
+			<bean class="books.interceptor.loginSessionCheckInterceptor"/>
+		</mvc:interceptor>
+	</mvc:interceptors>
+	
 	<!-- label.properties 읽어들이기 -->
 	<bean id="messageSource" class="org.springframework.context.support.ResourceBundleMessageSource">
 		<property name="basenames">
