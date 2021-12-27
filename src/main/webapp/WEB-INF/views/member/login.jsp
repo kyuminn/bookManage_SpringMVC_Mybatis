@@ -21,7 +21,8 @@
 			</tr>
 			<tr>
 				<td colspan="2" align="center">
-					<input type="submit" value="로그인 하기">
+					<input type="submit" value="로그인">
+					<input type="button" onclick="window.location.href='${pageContext.request.contextPath}/'" value="메인으로">
 				</td>
 			</tr>
 		</table>

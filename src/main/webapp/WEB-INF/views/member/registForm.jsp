@@ -13,23 +13,32 @@
 		<table border="1">
 			<tr>
 				<th>이메일</th>
-				<td><form:input path="email"/></td>
+				<td><form:input path="email"/>
+					<form:errors path="email"/>
+				</td>
 			</tr>
 			<tr>
 				<th>이름</th>
-				<td><form:input path="name"/></td>
+				<td><form:input path="name"/>
+					<form:errors path="name"/>
+				</td>
 			</tr>
 			<tr>
 				<th>비밀번호</th>
-				<td><form:input path="password"/></td>
+				<td><form:password path="password"/>
+					<form:errors path="password"/>
+				</td>
 			</tr>
 			<tr>
 				<th>비밀번호 확인</th>
-				<td><form:input path="confirmPassword"/></td>
+				<td><form:password path="confirmPassword"/>
+					<form:errors path="confirmPassword"/>
+				</td>
 			</tr>
 			<tr>
-				<td colspan="2">
-					<input type="submit" value="회원가입하기">
+				<td colspan="2" align="center">
+					<input type="submit" value="회원가입">
+					<input type="button" onclick="window.location.href='${pageContext.request.contextPath}/'" value="메인으로">
 				</td>
 			</tr>
 		</table>

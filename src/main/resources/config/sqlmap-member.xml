@@ -9,4 +9,7 @@
 	<select id="authenticate" parameterType="member" resultType="member">
 		select * from member where email=#{email} and password=#{password}
 	</select>
+	<select id="selectByEmail" parameterType="String" resultType="member">
+		select * from member where email=#{email}
+	</select>
   </mapper>

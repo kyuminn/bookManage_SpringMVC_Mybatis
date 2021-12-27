@@ -10,6 +10,8 @@ import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 
+import member.exception.AlreadyExistingMemberException;
+import member.exception.ConfirmPwdNotMatchingException;
 import member.exception.IdPasswordNotMatchingException;
 import member.service.MemberService;
 import member.vo.MemberVo;
@@ -31,8 +33,17 @@ public class MemberController {
 	}
 	
 	@RequestMapping(value="/member/regist",method=RequestMethod.POST)
-	public String regist(@ModelAttribute("formData")MemberVo vo) {
-		memberService.regist(vo);
+	public String regist(@ModelAttribute("formData")MemberVo vo,Errors errors) {
+		try {
+			memberService.regist(vo);
+		}catch(ConfirmPwdNotMatchingException e) {
+			errors.rejectValue("confirmPassword", "notMatching");
+			return "/member/registForm";
+		}catch(AlreadyExistingMemberException e) {
+			errors.rejectValue("email", "duplicate");
+			return "/member/registForm";
+		}
+
 		return "redirect:/";
 	}
 	

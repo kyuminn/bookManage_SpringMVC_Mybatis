@@ -4,6 +4,8 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import member.dao.MemberDao;
+import member.exception.AlreadyExistingMemberException;
+import member.exception.ConfirmPwdNotMatchingException;
 import member.exception.IdPasswordNotMatchingException;
 import member.vo.MemberVo;
 
@@ -18,8 +20,13 @@ public class MemberServiceImpl implements MemberService{
 	
 	@Override
 	public void regist(MemberVo vo) {
+		if(!vo.getPassword().equals(vo.getConfirmPassword())) {
+			throw new ConfirmPwdNotMatchingException();
+		}
+		if(memberDao.selectByEmail(vo.getEmail())!=null) {
+			throw new AlreadyExistingMemberException();
+		}
 		memberDao.regist(vo);
-		
 	}
 
 	@Override
@@ -30,5 +37,6 @@ public class MemberServiceImpl implements MemberService{
 		}
 		return dbVo;
 	}
+
 
 }
