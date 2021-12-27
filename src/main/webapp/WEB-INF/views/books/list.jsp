@@ -74,7 +74,12 @@
 		<a href="${pageContext.request.contextPath}/books/list?pageNum=${page.backPage}">[이전]</a>
 	</c:if>
 	<c:forEach var="i" begin="${page.startPageNum}" end="${page.lastPageNum}" >
-		<a href="${pageContext.request.contextPath}/books/list?pageNum=${i }">[${i}]</a>&nbsp;&nbsp;
+		<c:if test="${i eq pageNum }">
+			<b>[${i}]</b>
+		</c:if>
+		<c:if test="${i ne pageNum }">
+		<a href="${pageContext.request.contextPath}/books/list?pageNum=${i}">[${i}]</a>&nbsp;&nbsp;
+		</c:if>
 	</c:forEach>
 	<c:if test="${lastBlock == true }">
 		<a href="${pageContext.request.contextPath}/books/list?pageNum=${page.forwardPage}">[다음]</a>

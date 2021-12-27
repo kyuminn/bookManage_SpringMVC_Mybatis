@@ -98,6 +98,7 @@ public class BookController {
 
 		model.addAttribute("page",page);
 		model.addAttribute("list",list);
+		model.addAttribute("pageNum",pageNum);
 		if (page.getStartPageNum() > page.getPageBlock()) {
 			model.addAttribute("firstBlock", true); // 이전 버튼 활성화
 		}
