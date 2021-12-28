@@ -69,7 +69,7 @@ public class MemberController {
 		try {
 			MemberVo loginSession=memberService.login(vo);
 			session.setAttribute("loginSession", loginSession);
-			
+			//이메일 기억하기 쿠키 구현
 			Cookie cookie = new Cookie("rememberEmail",vo.getEmail());
 			cookie.setPath("/");
 			if(vo.isRememberEmail()) {
