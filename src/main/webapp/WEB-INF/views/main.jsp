@@ -6,6 +6,7 @@
 <head>
 <meta charset="UTF-8">
 <title>Main page</title>
+<!-- jstl에서 null값 여부 확인은 empty로! -->
 </head>
 <body>
 	<h2>도서 관리 메인 페이지</h2>

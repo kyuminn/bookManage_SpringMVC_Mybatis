@@ -4,7 +4,6 @@
 	<!-- result Type은  mybatis-config에서 정의한 alias 이름 -->
 	<!-- id = 특정 쿼리문을 식별하기 위한 값 -->
 	<!-- namespace " 쿼리들 묶음 이름... -->
-	<!-- boardDao.list로 접근 -->
   <mapper namespace="bookDao">
 	<insert id="regist" parameterType="vo">
 		insert into books(id,bookimagename,isbn,book_name,writer,publisher,price,content) 

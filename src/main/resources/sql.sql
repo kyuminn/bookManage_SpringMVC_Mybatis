@@ -12,7 +12,7 @@
 	
 	create table member (
     id number primary key,
-    email varchar2(500) not null,
+    email varchar2(500) unique not null,
     name varchar2(255) not null,
     password varchar2(255) not null );
     

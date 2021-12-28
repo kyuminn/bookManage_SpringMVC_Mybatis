@@ -13,7 +13,7 @@
 	<!-- @Autowired 어노테이션 읽어들이기 -->
 	<context:annotation-config/>
 	
-	<!-- board 패키지 아래 @Controller, @Repository, @Service 어노테이션 붙은 클래스에 대한 객체 자동 생성 -->
+	<!-- base-package 패키지 아래 @Controller, @Repository, @Service 어노테이션 붙은 클래스에 대한 객체 자동 생성 -->
 	<context:component-scan base-package="books"/>
 	<context:component-scan base-package="member"/>
 	
