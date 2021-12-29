@@ -2,7 +2,7 @@
 <web-app xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns="http://xmlns.jcp.org/xml/ns/javaee" xsi:schemaLocation="http://xmlns.jcp.org/xml/ns/javaee http://xmlns.jcp.org/xml/ns/javaee/web-app_3_1.xsd" version="3.1">
   <display-name>books</display-name>
  	<servlet>
-		<servlet-name>dispatcherServlet</servlet-name> <!-- front-controller -->
+		<servlet-name>dispatcherServlet</servlet-name> <!-- 스프링에서 제공하는 front-controller, 요청 URI를 분석하여 @RequestMapping 과 일치하는 controller에게 요청을 처리하도록 넘김-->
 		<servlet-class>org.springframework.web.servlet.DispatcherServlet</servlet-class>
 		<init-param>
 			<param-name>contextConfigLocation</param-name> <!--  꼭 이 이름 써야함 -->
@@ -11,7 +11,7 @@
 				/WEB-INF/spring/root-context.xml
 			</param-value>
 		</init-param>
-		<load-on-startup>1</load-on-startup> <!--  서버가 시작되면 바로 이 서블릿 생성 -->
+		<load-on-startup>1</load-on-startup> <!--  서버가 시작되면 가장 첫번째로 이 서블릿 생성 -->
 	</servlet>
 	
 	<servlet-mapping>

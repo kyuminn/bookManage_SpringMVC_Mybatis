@@ -10,18 +10,24 @@
 	
 	<mvc:annotation-driven/>
 	
+	<!-- 요청 url에 매핑되는 컨트롤러가 존재하지 않을때 (html이나 css 같은 정적 파일을 요청할 경우) 처리하는 Controller -->
 	<mvc:default-servlet-handler/>
 	
 	<mvc:view-resolvers>
 		<mvc:jsp prefix="/WEB-INF/views/" suffix=".jsp"/>
 	</mvc:view-resolvers>
 	
+	<!-- 특정 Controller를 거치지 않고 바로 jsp 페이지를 보여주고 싶을때 사용 -->
 	<mvc:view-controller path="/" view-name="main"/>
 	
-	<!-- resource 아래에 있는 스크립트 파일 경로 설정 -->
+	<!-- resource 아래에 있는 스크립트 파일 경로 설정, 최상위가 webapp-->
+	<!-- WEB-INF아래 있는 파일은 클라이언트가 직접 접근할 수 없기 때문에 webapp 아래 있는 resource에서 정적 자원 관리 -->
 	<mvc:resources location="/resources/" mapping="/resources/**"/>
 	
-	<!-- interceptor 설정 -->
+	<!-- interceptor 설정
+	1. Controller(handler) 실행 전 (preHandle)/ 2.Controller에서 로직 수행후 view 보여주기 전 (postHandle)/ 3. view까지 보여준 후 (afterCompletion)
+	세 지점 중 하나 끼어들어 가서 원하는 작업을 처리할 수 있다 (예) 특정 페이지를 보기 위해서 로그인이 필요하다면 로그인 된 세션이 있는지 확인
+	 -->
 	<mvc:interceptors>
 		<mvc:interceptor>
 			<mvc:mapping path="/books/**"/> <!-- books 하위 경로로 요청했을때  -->
