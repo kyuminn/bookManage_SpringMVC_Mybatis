@@ -11,7 +11,6 @@ import books.vo.Paging;
 
 @Repository
 public class BookDaoImpl implements BookDao {
-	
 	@Autowired
 	private SqlSessionTemplate sqlSessionTemplate;
 	

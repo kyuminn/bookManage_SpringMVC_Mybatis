@@ -70,6 +70,7 @@
 	<br><br>
 	<!-- 위치이동 
 	<input type="button" onclick="window.location.href='${pageContext.request.contextPath}/books/add'" value="도서 정보 추가">-->
+	<c:if test="${!empty pageNum }">
 	<c:if test="${firstBlock == true}">
 		<a href="${pageContext.request.contextPath}/books/list?pageNum=${page.backPage}">[이전]</a>
 	</c:if>
@@ -83,6 +84,7 @@
 	</c:forEach>
 	<c:if test="${lastBlock == true }">
 		<a href="${pageContext.request.contextPath}/books/list?pageNum=${page.forwardPage}">[다음]</a>
+	</c:if>
 	</c:if>
 	</c:if>
 </body>

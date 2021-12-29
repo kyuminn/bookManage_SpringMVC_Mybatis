@@ -12,7 +12,7 @@ import member.vo.MemberVo;
 public class loginSessionCheckInterceptor extends HandlerInterceptorAdapter{
 	
 	// 로그인 한 상태에서만 books 에 접근할 수 있도록 만들기
-	// preHandle: controller 동작 전에, intercept 하는  method
+	// preHandle: controller 동작 전에, intercept 하는 method
 	@Override
 	public boolean preHandle(HttpServletRequest request, HttpServletResponse response, Object handler)
 			throws Exception {
