@@ -4,6 +4,8 @@ import javax.servlet.http.Cookie;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -22,7 +24,7 @@ import member.vo.MemberVo;
 
 @Controller
 public class MemberController {
-	
+	private static Logger logger = LogManager.getLogger();
 	@Autowired
 	private MemberService memberService;
 	
@@ -32,6 +34,7 @@ public class MemberController {
 	
 	@RequestMapping(value="/member/regist",method=RequestMethod.GET)
 	public String regist(Model model) {
+		logger.info("regist-GET");
 		model.addAttribute("formData",new MemberVo());
 		return "/member/registForm";
 	}
@@ -57,6 +60,7 @@ public class MemberController {
 	
 	@RequestMapping(value="/member/login",method=RequestMethod.GET)
 	public String login(@ModelAttribute("loginFormData")MemberVo vo, @CookieValue(value="rememberEmail", required=false)Cookie cookie) {
+		logger.info("login-GET");
 		if (cookie!=null) {
 			vo.setEmail(cookie.getValue());
 			vo.setRememberEmail(true);
@@ -66,6 +70,7 @@ public class MemberController {
 	
 	@RequestMapping(value="/member/login",method=RequestMethod.POST)
 	public String login(@ModelAttribute("loginFormData")MemberVo vo,Errors errors,HttpSession session,HttpServletResponse response) {
+		
 		try {
 			MemberVo loginSession=memberService.login(vo);
 			session.setAttribute("loginSession", loginSession);

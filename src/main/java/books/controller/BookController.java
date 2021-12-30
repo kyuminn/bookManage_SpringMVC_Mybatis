@@ -6,6 +6,8 @@ import java.util.List;
 
 import javax.servlet.http.HttpServletRequest;
 
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -27,6 +29,7 @@ import books.vo.Paging;
 
 @Controller
 public class BookController {
+	private static Logger logger = LogManager.getLogger(BookController.class);
 	
 	@Autowired
 	private BookService bookService;
@@ -57,7 +60,7 @@ public class BookController {
 	 * */
 	@RequestMapping(value="/books/add", method=RequestMethod.POST)
 	public String regist(@ModelAttribute("vo")BookVo vo,Errors errors,@RequestParam("uploadFile")MultipartFile uploadFile) {
-		//File file = new File("C:/bookImage/"+uploadFile.getOriginalFilename());
+		logger.info("책 가격:"+vo.getPrice());
 		String filePath="C:/bookImage";
 		File dir = new File(filePath);
 		
@@ -144,6 +147,7 @@ public class BookController {
 	
 	@RequestMapping(value="/books/delete/{id}")
 	public String delete(@PathVariable("id")int id) {
+		logger.info("삭제된 책번호:"+id);
 		bookService.delete(id);
 		return "redirect:/books/list";
 	}
