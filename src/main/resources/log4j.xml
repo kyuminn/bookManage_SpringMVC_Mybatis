@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<!DOCTYPE log4j:configuration PUBLIC "-//APACHE//DTD LOG4J 1.2//EN" "log4j.dtd">
+<!DOCTYPE log4j:configuration SYSTEM "http://logging.apache.org/log4j/1.2/apidocs/org/apache/log4j/xml/doc-files/log4j.dtd">
+
 <log4j:configuration xmlns:log4j="http://jakarta.apache.org/log4j/">
 
 	<!-- Appenders -->
@@ -8,28 +9,29 @@
 		<layout class="org.apache.log4j.PatternLayout">
 			<param name="ConversionPattern" value="%-5p: %c - %m%n" />
 		</layout>
-		<!--  
-		<File name="file" fileName="./log/sample.log"
+		<!-- 안됌...... 
+		<File name="file" fileName="C:/log/test.log"
 			append="true">
 			<PatternLayout pattern="%d %5p [%c] %m%n" />
-		</File>-->
+		</File> -->
 	</appender>
 	
-	<!-- 로그 파일로 저장 
-	  <appender name="logFile" class="org.apache.log4j.DailyRollingFileAppender">
+	<!-- 로그 파일로 저장 // 얘도 안됨......
+	  <appender name="file" class="org.apache.log4j.DailyRollingFileAppender">
         <param name="file" value="C:/Temp/logFile.log"/>
         <param name="Append" value="true"/>
         <param name="dataPattern" value=".yyyy-MM-dd"/>
         <layout class="org.apache.log4j.PatternLayout">
             <param name="ConversionPattern" value="[%d{yyyy-MM-dd HH:mm:ss}] %-5p: %F:%L - %m%n" />
         </layout>
-    </appender>-->
+    </appender>
+    -->
 	
 	<!-- Application Loggers -->
 	<logger name="books">
 		<level value="info" />
 		<appender-ref ref="console" />
-		<appender-ref ref="logFile"/>
+		<appender-ref ref="file"/>
 	</logger>
 	
 	<!-- 3rdparty Loggers -->
@@ -53,7 +55,7 @@
 	<root>
 		<priority value="info" />
 		<appender-ref ref="console" />
-		<appender-ref ref="logFile"/>
+		<appender-ref ref="file"/>
 	</root>
 	
 </log4j:configuration>
