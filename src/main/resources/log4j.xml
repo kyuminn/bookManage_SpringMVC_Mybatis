@@ -15,15 +15,15 @@
 		</File>-->
 	</appender>
 	
-	<!-- 로그 파일로 저장 -->
+	<!-- 로그 파일로 저장 
 	  <appender name="logFile" class="org.apache.log4j.DailyRollingFileAppender">
-        <param name="file" value="c:temp/logFile.log"/>
+        <param name="file" value="C:/Temp/logFile.log"/>
         <param name="Append" value="true"/>
         <param name="dataPattern" value=".yyyy-MM-dd"/>
         <layout class="org.apache.log4j.PatternLayout">
             <param name="ConversionPattern" value="[%d{yyyy-MM-dd HH:mm:ss}] %-5p: %F:%L - %m%n" />
         </layout>
-    </appender>
+    </appender>-->
 	
 	<!-- Application Loggers -->
 	<logger name="books">
