@@ -15,7 +15,7 @@ public class Paging {
 	@Autowired
 	private BookService bookService;
 	
-	private int pageSize=3; // 한 페이지에 들어가는 글 수 (startRowNum부터 finalRowNum개수)
+	private int pageSize=3; // 한 페이지에 들어가는 글 수 (startRowNum부터 lastRowNum개수)
 	private int pageBlock=3; // 페이지 블록 수 1,2,3// 4,5,6 
 	private int startRowNum=0; // 한 페이지의 시작 번호
 	private int lastRowNum=0;  // 한 페이지의 끝 번호
@@ -31,7 +31,7 @@ public class Paging {
 		lastRowNum= startRowNum + pageSize -1;
 	}
 	
-	public void setPageVar(int currentPage , int rowCount) {
+	public void setPageVar(int currentPage , int rowCount) { //페이지 블록에 관련된 변수 설정하는 메서드
 		totalRowCount= rowCount;
 		int imsi = totalRowCount % pageSize ==0 ? 0 :1;
 		totalPageCount = totalRowCount/pageSize + imsi;

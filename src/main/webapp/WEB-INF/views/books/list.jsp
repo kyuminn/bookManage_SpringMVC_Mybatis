@@ -68,14 +68,13 @@
 		</c:forEach>
 	</table>
 	<br><br>
-	<!-- 위치이동 
-	<input type="button" onclick="window.location.href='${pageContext.request.contextPath}/books/add'" value="도서 정보 추가">-->
+	<!--  null 값 여부 체크는 empty로 , 문자열 비교는 eq 사용 -->
 	<c:if test="${!empty pageNum }">
 	<c:if test="${firstBlock == true}">
 		<a href="${pageContext.request.contextPath}/books/list?pageNum=${page.backPage}">[이전]</a>
 	</c:if>
 	<c:forEach var="i" begin="${page.startPageNum}" end="${page.lastPageNum}" >
-		<c:if test="${i eq pageNum }">
+		<c:if test="${i eq pageNum }"> <!--  현재 페이지 굵게 표시, 링크 비활성화 -->
 			<b>[${i}]</b>
 		</c:if>
 		<c:if test="${i ne pageNum }">

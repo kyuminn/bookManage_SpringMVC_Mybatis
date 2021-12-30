@@ -8,7 +8,8 @@ import org.springframework.web.servlet.handler.HandlerInterceptorAdapter;
 
 import member.vo.MemberVo;
 
-// spring-mvc.xml에 interceptor bean 등록하기
+// xml 설정파일에 interceptor bean 등록하기
+// HandlerInterceptor interface를 바로 구현하면 모든 메서드를 오버라이딩해야 하는데, 필요한 메서드(preHandle)만 구현하고 싶을 때는 Adapter pattern 적용
 public class loginSessionCheckInterceptor extends HandlerInterceptorAdapter{
 	
 	// 로그인 한 상태에서만 books 에 접근할 수 있도록 만들기
@@ -16,7 +17,7 @@ public class loginSessionCheckInterceptor extends HandlerInterceptorAdapter{
 	@Override
 	public boolean preHandle(HttpServletRequest request, HttpServletResponse response, Object handler)
 			throws Exception {
-		HttpSession session = request.getSession(false);
+		HttpSession session = request.getSession(false); // 세션이 없다면 생성하지 않음
 		if (session!=null) {
 			MemberVo loginSession = (MemberVo)session.getAttribute("loginSession");
 			if (loginSession!=null) {
