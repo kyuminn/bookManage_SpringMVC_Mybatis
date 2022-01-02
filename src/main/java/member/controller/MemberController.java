@@ -3,6 +3,7 @@ package member.controller;
 import javax.servlet.http.Cookie;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
+import javax.validation.Valid;
 
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
@@ -69,7 +70,7 @@ public class MemberController {
 	}
 	
 	@RequestMapping(value="/member/login",method=RequestMethod.POST)
-	public String login(@ModelAttribute("loginFormData")MemberVo vo,Errors errors,HttpSession session,HttpServletResponse response) {
+	public String login(@Valid@ModelAttribute("loginFormData")MemberVo vo,Errors errors,HttpSession session,HttpServletResponse response) {
 		
 		try {
 			MemberVo loginSession=memberService.login(vo);

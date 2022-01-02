@@ -13,14 +13,19 @@
 <meta charset="UTF-8">
 <title>도서관리</title>
  <style type="text/css">
-	table {
-	width:700px;
+	
+	.container{
+		text-align:right;
+	}
+	
+	.navbar-brand{
+		font-size:30px;
+		text-align:center;
 	}
 
 </style> 
 </head>
 <body>
-	<h2>도서관리 리스트</h2>
 	<c:if test="${empty list }">
 		<h3>등록된 도서가 없습니다.</h3>
 		<table class="addBook">
@@ -34,13 +39,26 @@
 	
 	
 	<c:if test="${!empty list }">
+	<nav class="navbar navbar-light bg-light">
+  	<div class="container-fluid">
+    <a class="navbar-brand">도서 리스트</a>
+    <form class="d-flex" action="<c:url value='/books/search'/>">
+      <input class="form-control me-2" type="text" name="keyword" placeholder="도서제목 또는 저자 입력" aria-label="Search">&nbsp;&nbsp;
+      <button class="btn btn-outline-success" type="submit">검색하기</button>
+    </form>
+  </div>
+</nav>
+	<!--  
+	<div class="container">
 	<form action="<c:url value='/books/search'/>">
-		<label for="search">검색 키워드 입력:</label>
-		<input type="text" id="search" name="keyword" placeholder="도서제목 또는 저자 입력">
+		<label for="search">키워드로 검색하기:</label>&nbsp;&nbsp;&nbsp;
+		<input type="text" id="search" name="keyword" placeholder="도서제목 또는 저자 입력">&nbsp;&nbsp;&nbsp;
 		<input type="submit" value="찾기" class="btn btn-primary">
 	</form>
+	</div>-->
 	<br>
-	<table class="table table-striped w-auto" border="1">
+	<table class="table table-striped" border="1"> <!-- table table-striped w-auto -->
+		<thead class="text-center">
 		<tr>
 			<th>등록 번호</th>
 			<th>도서 표지</th>
@@ -50,9 +68,10 @@
 			<th>출판사</th>
 			<th>가격</th>
 		</tr>
+		</thead>
 		<c:forEach items="${list}" var="vo">
 			<tr>
-				<td>${vo.id }</td>
+				<td align="center">${vo.id }</td>
 				<!-- Servers>servers.xml에 외부 경로와 마운트 설정하는 부분 추가하기 -->
 				<td><img src="/img/${vo.bookImageName }" width="100" height="130">
 				</td>
@@ -70,27 +89,34 @@
 			</td>
 		</tr>
 	</table>
+	</c:if>
 	<br>
-	<!--  null 값 여부 체크는 empty로 , 문자열 비교는 eq 사용 -->
-	<c:if test="${!empty pageNum }">
-	<c:if test="${firstBlock == true}">
-		<a href="${pageContext.request.contextPath}/books/list?pageNum=${page.backPage}">[이전]</a>
-	</c:if>
-	<c:forEach var="i" begin="${page.startPageNum}" end="${page.lastPageNum}" >
-		<c:if test="${i eq pageNum }"> <!--  현재 페이지 굵게 표시, 링크 비활성화 -->
-			<b>[${i}]</b>
-		</c:if>
-		<c:if test="${i ne pageNum }">
-		<a href="${pageContext.request.contextPath}/books/list?pageNum=${i}">[${i}]</a>&nbsp;&nbsp;
-		</c:if>
-	</c:forEach>
-	<c:if test="${lastBlock == true }">
-		<a href="${pageContext.request.contextPath}/books/list?pageNum=${page.forwardPage}">[다음]</a>
-	</c:if>
-	</c:if>
-	</c:if>
-	
+
 	<!-- 부트 스트랩 적용 -->
-	
+	<c:if test="${!empty pageNum }">
+	<nav aria-label="Page navigation example">
+  <ul class="pagination justify-content-center">
+  	<c:if test="${firstBlock==true }">
+    <li class="page-item">
+      <a class="page-link" href="${pageContext.request.contextPath}/books/list?pageNum=${page.backPage}" aria-label="Previous">
+        <span aria-hidden="true">&laquo;</span>
+      </a>
+    </li>
+    </c:if>
+    
+    <c:forEach var="i" begin="${page.startPageNum}" end="${page.lastPageNum }">
+    <li class="page-item"><a class="page-link" href="${pageContext.request.contextPath}/books/list?pageNum=${i}"><b>${i }</b></a></li>
+    </c:forEach>
+    
+    <c:if test="${lastBlock==true }">
+    <li class="page-item">
+      <a class="page-link" href="${pageContext.request.contextPath}/books/list?pageNum=${page.forwardPage}" aria-label="Next">
+        <span aria-hidden="true">&raquo;</span>
+      </a>
+    </li>
+    </c:if>
+  </ul>
+</nav>
+</c:if>
 </body>
 </html>
