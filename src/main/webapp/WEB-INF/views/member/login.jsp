@@ -55,6 +55,11 @@
             </label>
           </div>
           <button class="w-100 btn btn btn-primary" type="submit">로그인</button><br>
+            <div id="google_id_login" style="text-align: center">
+    		<a href="${google_url}">
+     			 구글 로그인
+    		</a>
+  </div>
           <input class="w-100 btn btn btn-secondary" type="button" onclick="window.location.href='${pageContext.request.contextPath}/'" value="메인으로"/>
           <br>
           <form:errors/>

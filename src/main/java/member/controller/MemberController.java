@@ -68,9 +68,16 @@ public class MemberController {
 		return "redirect:/";
 	}
 	
-
+	@Autowired
+	private GoogleConnectionFactory googleConnectionFactory;
+	@Autowired
+	private OAuth2Parameters googleOAuth2Parameters;
 	@RequestMapping(value="/member/login",method=RequestMethod.GET)
-	public String login(@ModelAttribute("loginFormData")MemberVo vo, @CookieValue(value="rememberEmail", required=false)Cookie cookie) {
+	public String login(@ModelAttribute("loginFormData")MemberVo vo, @CookieValue(value="rememberEmail", required=false)Cookie cookie,Model model) {
+		OAuth2Operations oauthOperations = googleConnectionFactory.getOAuthOperations();
+		
+		String url = oauthOperations.buildAuthenticateUrl(GrantType.AUTHORIZATION_CODE,googleOAuth2Parameters);
+		model.addAttribute("google_url",url);
 		logger.info("login-GET");
 		if (cookie!=null) {
 			vo.setEmail(cookie.getValue());
@@ -103,7 +110,13 @@ public class MemberController {
 		return "redirect:/";
 	}
 	
+	// 구글 로그인
+	  @RequestMapping(value = "/oauth2callback", method = { RequestMethod.GET, RequestMethod.POST })
+	  public String googleCallback(Model model, @RequestParam String code,HttpSession session) throws IOException {
+	    System.out.println("Google login success");
 
+	    return "redirect:/";
+	  }
 	@RequestMapping(value="/member/logout")
 	public String logout(HttpSession session) {
 		session.invalidate();
