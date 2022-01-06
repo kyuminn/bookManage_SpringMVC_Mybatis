@@ -145,10 +145,16 @@ public class BookController {
 		return "/books/list";
 	}
 	
-	@RequestMapping(value="/books/delete/{id}")
-	public String delete(@PathVariable("id")int id) {
-		logger.info("삭제된 책번호:"+id);
-		bookService.delete(id);
-		return "redirect:/books/list";
+	@RequestMapping(value="/books/delete/{id}" ,method=RequestMethod.GET)
+	public String delete(/*@PathVariable("id")int id*/) {
+//		logger.info("삭제된 책번호:"+id);
+//		bookService.delete(id);
+//		return "redirect:/books/list";
+		return "/books/delete";
 	}
+	
+//	@RequestMapping(value="/books/delete/{id}",method=RequestMethod.POST)
+//	public String delete(@PathVariable("id")int id,@RequestParam("password")String password) {
+//		
+//	}
 }

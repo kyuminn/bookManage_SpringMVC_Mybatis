@@ -1,5 +1,7 @@
 package member.controller;
 
+import java.io.IOException;
+
 import javax.servlet.http.Cookie;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
@@ -8,6 +10,11 @@ import javax.validation.Valid;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.social.google.api.Google;
+import org.springframework.social.google.connect.GoogleConnectionFactory;
+import org.springframework.social.oauth2.GrantType;
+import org.springframework.social.oauth2.OAuth2Operations;
+import org.springframework.social.oauth2.OAuth2Parameters;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.Errors;
@@ -15,6 +22,9 @@ import org.springframework.web.bind.annotation.CookieValue;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.RequestParam;
+
+import com.fasterxml.jackson.databind.JsonNode;
 
 import member.exception.AlreadyExistingMemberException;
 import member.exception.ConfirmPwdNotMatchingException;
@@ -59,8 +69,16 @@ public class MemberController {
 		return "redirect:/";
 	}
 	
+	@Autowired
+	private GoogleConnectionFactory googleConnectionFactory;
+	@Autowired
+	private OAuth2Parameters googleOAuth2Parameters;
 	@RequestMapping(value="/member/login",method=RequestMethod.GET)
-	public String login(@ModelAttribute("loginFormData")MemberVo vo, @CookieValue(value="rememberEmail", required=false)Cookie cookie) {
+	public String login(@ModelAttribute("loginFormData")MemberVo vo, @CookieValue(value="rememberEmail", required=false)Cookie cookie,Model model) {
+		OAuth2Operations oauthOperations = googleConnectionFactory.getOAuthOperations();
+		
+		String url = oauthOperations.buildAuthenticateUrl(GrantType.AUTHORIZATION_CODE,googleOAuth2Parameters);
+		model.addAttribute("google_url",url);
 		logger.info("login-GET");
 		if (cookie!=null) {
 			vo.setEmail(cookie.getValue());
@@ -68,6 +86,7 @@ public class MemberController {
 		}
 		return "/member/login";
 	}
+	
 	
 	@RequestMapping(value="/member/login",method=RequestMethod.POST)
 	public String login(@Valid@ModelAttribute("loginFormData")MemberVo vo,Errors errors,HttpSession session,HttpServletResponse response) {
@@ -91,6 +110,20 @@ public class MemberController {
 		}
 		return "redirect:/";
 	}
+	
+	// 구글 로그인
+	  @RequestMapping(value = "/oauth2callback", method = { RequestMethod.GET, RequestMethod.POST })
+	  public String googleCallback(Model model, @RequestParam String code,HttpSession session) throws IOException {
+		 try {
+			String token = Google.getAccessToken();
+		} catch (Exception e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+	    System.out.println("Google login success");
+
+	    return "redirect:/";
+	  }
 	@RequestMapping(value="/member/logout")
 	public String logout(HttpSession session) {
 		session.invalidate();

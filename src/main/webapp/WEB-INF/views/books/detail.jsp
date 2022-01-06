@@ -78,6 +78,10 @@
 							<td colspan="3">${vo.content }</td>
 						</tr>
 					</table>
+					<br>
+						<input type="button" class="btn btn btn-primary" onclick="window.location.href='${pageContext.request.contextPath}/books/list'" value="목록으로">
+						<input type="button" class="btn btn btn-secondary" onclick="window.location.href='${pageContext.request.contextPath}/books/delete/${vo.id}'" value="도서 삭제">
+						<input type="button" class="btn btn btn-info" value="수정하기">
                 </div>
             </div>
         </div>

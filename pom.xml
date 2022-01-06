@@ -138,6 +138,34 @@
 		<version>2.3.0-b170201.1204</version>
 	</dependency>
 	
+	  <!-- 구글 소셜 로그인 구현 -->
+  <dependency>
+    <groupId>org.springframework.social</groupId>
+    <artifactId>spring-social-google</artifactId>
+    <version>1.0.0.RELEASE</version>
+  </dependency>
+  <!-- 구글 소셜 로그인 구현 -->
+  
+  <dependency>
+		<groupId>com.fasterxml.jackson.core</groupId>
+		<artifactId>jackson-core</artifactId>
+		<version>2.9.9</version>
+	</dependency>
+	
+	        <!-- httpcore -->
+        <dependency>
+            <groupId>org.apache.httpcomponents</groupId>
+            <artifactId>httpcore</artifactId>
+            <version>4.4.6</version>
+        </dependency>
+        
+        <!-- httpclient -->
+        <dependency>
+            <groupId>org.apache.httpcomponents</groupId>
+            <artifactId>httpclient</artifactId>
+            <version>4.5.3</version>
+        </dependency>     
+	
   </dependencies>
 
   
